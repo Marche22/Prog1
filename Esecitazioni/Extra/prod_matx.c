@@ -12,9 +12,9 @@ void matx_prod(int r1,int c1, int r2, int c2, float m1[r1][c1], float m2[r2][c2]
 
 int main (void){
 	int r1,c1,r2,c2,r,c;
-	
+
 	printf("\n\tCALCOLATORE PRODOTTO RIGHE X COLONNE TRA 2 MATRICI\n");
-	
+
 	printf("\nInserisci il numero di righe della prima matrice: ");
 	scanf("%d",&r1);
 	printf("\nInserisci il numero di colonne della prima matrice: ");
@@ -31,10 +31,10 @@ int main (void){
 
 	printf("\nInserisci il numero di colonne della seconda matrice: ");
 	scanf("%d",&c2);
-	
+
 	r=r1;
-	c=c2;	
-	
+	c=c2;
+
 	float m1[r1][c1];
 	float m2[r2][c2];
 	float m[r][c];
@@ -42,12 +42,12 @@ int main (void){
 	clean_matx(r1,c1,m1);
 	clean_matx(r2,c2,m2);
 	clean_matx(r,c,m);
-	
+
 	printf("\nRiempimento della prima matrice:");
 	write_matx(r1,c1,m1);
 	printf("\nRiempimento della seconda matrice:");
 	write_matx(r2,c2,m2);
-	
+
 	printf("\nCalcolo in corso...\n");
 	print_matx(r1,c1,m1);
 	printf("\n\n\tX\n");
@@ -56,7 +56,7 @@ int main (void){
 	matx_prod(r1,r2,c1,c2,m1,m2,m);
 	print_matx(r,c,m);
 	printf("\n");
-	
+
 	return 0;
 }
 
@@ -66,15 +66,15 @@ void clean_matx(int r, int c, float m[r][c]){
 		for(int j=0; j<c; j++){
 			m[i][j]=0;
 		}
-	}	
+	}
 }
 
 void write_matx(int r, int c, float m[r][c]){
-	
+
 	for(int i=0; i<r; i++){
 		for(int j=0; j<c; j++){
 			printf("\nInserisci il valore nella riga %d e colonna %d: ", i+1, j+1);
-			scanf("%lf",&m[i][j]);
+			scanf("%f",&m[i][j]);
 		}
 	}
 }
@@ -94,12 +94,12 @@ void print_matx(int r, int c, float m[r][c]){
 }
 
 void matx_prod(int r1,int c1, int r2, int c2, float m1[r1][c1], float m2[r2][c2], float m[r1][c2]){
-	
+
 	for(int i=0; i<r1; i++){
 		for(int j=0; j<c2; j++){
 			for(int k=0; k<r2; k++){
 				m[i][j]+=(m1[i][k]*m2[k][j]);
 			}
 		}
-	}	
+	}
 }
