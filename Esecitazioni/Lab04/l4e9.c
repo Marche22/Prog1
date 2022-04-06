@@ -8,6 +8,7 @@ int main(void) {
     do{
         printf("\nInserisci il numero di dati di cui calcolare la media: ");
         scanf("%d", &dim);
+        getchar();
     }
     while(dim<1);
 
