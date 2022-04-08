@@ -5,6 +5,8 @@ void print_board(int board[DIM][DIM]);
 int valid_row(int board[DIM][DIM], int row, int n);
 int valid_column(int board[DIM][DIM], int column, int n);
 int valid_box(int board[DIM][DIM], int row, int column, int n);
+int valid_cell(int board[DIM][DIM], int row, int column, int n);
+int solve(int board[DIM][DIM]);
 
 int main(void){
 
@@ -21,9 +23,8 @@ int main(void){
     };
 
     print_board(board);
-    printf("\n%d", valid_row(board, 0, 8));
-    printf("\n%d", valid_column(board, 0, 8));
-    printf("\n%d", valid_box(board, 7, 7, 7));
+    solve(board);
+    print_board(board);
 
     return 0;
 }
@@ -31,6 +32,7 @@ int main(void){
 void print_board(int board[DIM][DIM]){
     for(int i=0; i<DIM; i++){ //rows
         if(!i){
+            printf("\n");
             for(int k=0; k<(DIM*4+1); k++){
                 printf("-");
             }
@@ -82,4 +84,28 @@ int valid_box(int board[DIM][DIM], int row, int column, int n){
         }
     }
     return valid;
+}
+
+int valid_cell(int board[DIM][DIM], int row, int column, int n){
+    return(valid_row(board, row, n)&&valid_column(board, column, n)&&valid_box(board, row, column, n));
+}
+
+int solve(int board[DIM][DIM]){
+    for(int i=0; i<DIM; i++){
+        for(int j=0; j<DIM; j++){
+            if(!board[i][j]){
+                for(int n=1; n<=DIM; n++){
+                    if(valid_cell(board,i,j,n)){
+                        board[i][j]=n;
+                        if(solve(board))
+                            return 1;
+                        else
+                            board[i][j]=0;
+                    }
+                }
+                return 0;
+            }
+        }
+    }
+    return 1;
 }
