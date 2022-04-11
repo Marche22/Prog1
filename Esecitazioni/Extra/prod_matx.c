@@ -5,13 +5,13 @@ PRODOTTO RIGA PER COLONNA TRA DUE MATRICI
 *******************************************************************************/
 #include <stdio.h>
 
-void clean_matx(int r, int c, float m[r][c]);	//riempie matx con zeri
-void write_matx(int r, int c, float m[r][c]); //riempire matx
-void print_matx(int r, int c, float m[r][c]); //stampare matx
-void matx_prod(int r1,int c1, int r2, int c2, float m1[r1][c1], float m2[r2][c2], float m[r1][c2]); //prodotto riga x colonna di due matx
+void clean_matx(int r, int c, double m[r][c]);	//riempie matx con zeri
+void write_matx(int r, int c, double m[r][c]); //riempire matx
+void print_matx(int r, int c, double m[r][c]); //stampare matx
+void matx_prod(int r1,int c1, int r2, int c2, double m1[r1][c1], double m2[r2][c2], double m[r1][c2]); //prodotto riga x colonna di due matx
 
 int main (void){
-	int r1,c1,r2,c2,r,c;
+	int r1,c1,r2,c2;
 
 	printf("\n\tCALCOLATORE PRODOTTO RIGHE X COLONNE TRA 2 MATRICI\n");
 
@@ -32,16 +32,13 @@ int main (void){
 	printf("\nInserisci il numero di colonne della seconda matrice: ");
 	scanf("%d",&c2);
 
-	r=r1;
-	c=c2;
-
-	float m1[r1][c1];
-	float m2[r2][c2];
-	float m[r][c];
+	double m1[r1][c1];
+	double m2[r2][c2];
+	double m[r1][c2];
 
 	clean_matx(r1,c1,m1);
 	clean_matx(r2,c2,m2);
-	clean_matx(r,c,m);
+	clean_matx(r1,c2,m);
 
 	printf("\nRiempimento della prima matrice:");
 	write_matx(r1,c1,m1);
@@ -54,13 +51,13 @@ int main (void){
 	print_matx(r2,c2,m2);
 	printf("\n\n\t=\n");
 	matx_prod(r1,r2,c1,c2,m1,m2,m);
-	print_matx(r,c,m);
+	print_matx(r1,c2,m);
 	printf("\n");
 
 	return 0;
 }
 
-void clean_matx(int r, int c, float m[r][c]){
+void clean_matx(int r, int c, double m[r][c]){
 
 	for(int i=0; i<r; i++){
 		for(int j=0; j<c; j++){
@@ -69,17 +66,17 @@ void clean_matx(int r, int c, float m[r][c]){
 	}
 }
 
-void write_matx(int r, int c, float m[r][c]){
+void write_matx(int r, int c, double m[r][c]){
 
 	for(int i=0; i<r; i++){
 		for(int j=0; j<c; j++){
 			printf("\nInserisci il valore nella riga %d e colonna %d: ", i+1, j+1);
-			scanf("%f",&m[i][j]);
+			scanf("%lf",&m[i][j]);
 		}
 	}
 }
 
-void print_matx(int r, int c, float m[r][c]){
+void print_matx(int r, int c, double m[r][c]){
 
 	for(int i=0; i<r; i++){
 		printf("\n|");
@@ -87,13 +84,13 @@ void print_matx(int r, int c, float m[r][c]){
 			if(j){
 				printf("\t");
 			}
-			printf("%g",m[i][j]);
+			printf("%.3f",m[i][j]);
 		}
 		printf("|");
 	}
 }
 
-void matx_prod(int r1,int c1, int r2, int c2, float m1[r1][c1], float m2[r2][c2], float m[r1][c2]){
+void matx_prod(int r1,int c1, int r2, int c2, double m1[r1][c1], double m2[r2][c2], double m[r1][c2]){
 
 	for(int i=0; i<r1; i++){
 		for(int j=0; j<c2; j++){
