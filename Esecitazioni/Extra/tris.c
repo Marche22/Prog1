@@ -248,7 +248,6 @@ void pc_move(int pc, int difficulty){
             board[1][1]=pc;
         else{ //if there is a move that make pc win, it does it
             cell = opponent_win_angle(opponent);
-            printf("\n!%d!", cell);
             if(cell>0){
                 int cell_id = 0;
                 for(int i=0; i<3; i++){
