@@ -39,7 +39,7 @@ int string_dim(char* string){
 	return i;
 }
 
-void switch_strings(char* s1, char* s2){
+void switch_strings(char* s1, char* s2){ //scambia due stringhe
     char aux[BUFSIZ];
 
     int i = 0;
