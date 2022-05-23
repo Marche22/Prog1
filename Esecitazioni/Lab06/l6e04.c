@@ -62,7 +62,6 @@ int lex(char *s, char *t){
 		if(((int) *(s+i)) > ((int) *(t+i)))
 			return -1;
 	}
-	printf("\\ug,%d",equal);
 	if(equal==1)
 		return 0;
 	if(string_dim(s)>string_dim(t))
