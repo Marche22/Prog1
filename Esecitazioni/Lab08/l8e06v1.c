@@ -7,7 +7,7 @@ int main(int argc, char* argv[]){
 
 	char string[BUFSIZ];
 
-	if(argc!3){
+	if(argc!=3){
 		printf("Mancano argomenti!\n");
 		return -1;
 	}

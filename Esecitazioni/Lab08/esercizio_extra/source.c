@@ -93,6 +93,7 @@ int* string_to_int_array(char* string, int files, int* numbers){
     *(string+length+1)='\0';
 
     for(int i=0; *(string+i)!='\0'; i++){
+        printf("\n|%c|",*(string+i));
         if( (*(string+i))!=' ' ){
             save_numbers[num_length] = (*(string+i)-'0');
             num_length++;
