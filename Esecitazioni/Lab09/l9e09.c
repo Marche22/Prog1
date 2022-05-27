@@ -19,17 +19,15 @@ int affind(Vett*, Vett*, Vett*);
 int degenere(Tri *);
 double dist(Vett*, Vett*);
 double area(Tri*);
-void rot_Vett(Vett*, double);
-void rot_Tri(Tri*, double);
 void clean_string(char*);
 void clean_double_array(double*);
 
 int main(int argc, char *argv[]) {
-
     if(argc<2){
         printf("\nErrore, mancanza di argomenti!\n");
         return -1;
     }
+
 
     FILE* file_pointer = fopen(argv[1], "r");
 
@@ -43,39 +41,15 @@ int main(int argc, char *argv[]) {
     int number_of_tri = atoi(first_line); //la rendo un intero
 
     Tri t [number_of_tri];
-    char lines [number_of_tri][BUFSIZ]; //array di stringhe dove metterò le varie righe di testo del file
-    char aux[BUFSIZ]; //stringa ausiliria
-    double coordinates[6]; //array dove metto le coordinate un triangolo alla volta
-    int counter = 0; //counter per aiutarmi a salvare i numeri
-    int index = 0; //indice della coordinata
-
     int i;
-    for(i=0; i<number_of_tri; i++){ //scorro il file di testo riga per riga
-        fgets(lines[i], BUFSIZ, file_pointer); //salvo la riga
-        clean_string(aux); //pulisco la stringa ausiliaria
-        clean_double_array(coordinates); //pulisco le coordinate
-        int index = 0; //setto l'indice delle coordinate a zero
-        for(int j=0; j<BUFSIZ; j++){ //scorro la riga del file appena salvata
-            if(*(lines[i]+j)!=' ' && *(lines[i]+j)!='\0'){ //se il carattere non è spazio o \0
-                *(aux+counter) = (*(lines[i]+j)); //salvo il carattere nella stringa aux
-                counter++;
-            }
-            else{ //altrimenti al primo spazio o alla fine della riga
-                coordinates[index] = atof(aux); //converto la stringa ausiliaria (che contiene il numero che ho appena salvato) e lo mette nelll'array delle coordinate
-                counter = 0; //resetto il counter perché dovrò salvare la prossima coordinata
-                index++; //aumento l'indice delle coordinate
-                clean_string(aux); //pulisco la stringa ausiliaria
-                if(index>5){ //quando arrivo alla fine dell'array delle coordinate ho finito
-                    break;
-                }
-            }
-        }
-        t[i].v1.x = coordinates[0]; //salvo le coordinate dall'array al triangolo
-        t[i].v1.y = coordinates[1];
-        t[i].v2.x = coordinates[2];
-        t[i].v2.y = coordinates[3];
-        t[i].v3.x = coordinates[4];
-        t[i].v3.y = coordinates[5];
+
+    for(i=0; i<number_of_tri; i++){
+        fscanf(file_pointer,"%lf",&t[i].v1.x);
+        fscanf(file_pointer,"%lf",&t[i].v1.y);
+        fscanf(file_pointer,"%lf",&t[i].v2.x);
+        fscanf(file_pointer,"%lf",&t[i].v2.y);
+        fscanf(file_pointer,"%lf",&t[i].v3.x);
+        fscanf(file_pointer,"%lf",&t[i].v3.y);
     }
 
     fclose(file_pointer);
@@ -171,21 +145,6 @@ double area(Tri* t){
     double l3 = dist(&t->v1,&t->v3);
     double semip = (l1+l2+l3)*0.5;
     return pow(semip*(semip-l1)*(semip-l2)*(semip-l3),0.5);
-}
-
-void rot_Vett(Vett* v, double a){
-    double coseno = cos(a);
-    double seno = sin(a);
-    double x = coseno*(v->x)-seno*(v->y);
-    double y = coseno*(v->y)+seno*(v->x);
-    v->x = x;
-    v->y = y;
-}
-
-void rot_Tri(Tri* t, double a){
-    rot_Vett(&t->v1,a);
-    rot_Vett(&t->v2,a);
-    rot_Vett(&t->v3,a);
 }
 
 void clean_string(char* string){

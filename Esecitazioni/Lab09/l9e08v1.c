@@ -19,8 +19,6 @@ int affind(Vett*, Vett*, Vett*);
 int degenere(Tri *);
 double dist(Vett*, Vett*);
 double area(Tri*);
-void rot_Vett(Vett*, double);
-void rot_Tri(Tri*, double);
 void clean_string(char*);
 void clean_double_array(double*);
 
@@ -121,21 +119,6 @@ double area(Tri* t){
     double l3 = dist(&t->v1,&t->v3);
     double semip = (l1+l2+l3)*0.5;
     return pow(semip*(semip-l1)*(semip-l2)*(semip-l3),0.5);
-}
-
-void rot_Vett(Vett* v, double a){
-    double coseno = cos(a);
-    double seno = sin(a);
-    double x = coseno*(v->x)-seno*(v->y);
-    double y = coseno*(v->y)+seno*(v->x);
-    v->x = x;
-    v->y = y;
-}
-
-void rot_Tri(Tri* t, double a){
-    rot_Vett(&t->v1,a);
-    rot_Vett(&t->v2,a);
-    rot_Vett(&t->v3,a);
 }
 
 void clean_string(char* string){
